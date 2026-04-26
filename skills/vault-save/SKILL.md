@@ -119,11 +119,22 @@ Complete catalog of all notes in this vault.
 | [[note-title]] | tag1, tag2 | note | Brief summary of the note |
 ```
 
-### 7. Commit
+### 7. Secret Scan and Commit
 
 ```bash
 cd ~/.local/share/opencode/vault/branches/<branch-name>
 git add -A
+```
+
+**Secret scan** before committing:
+
+1. Check if gitleaks is available: `command -v gitleaks`
+   - If not installed, warn the user: "gitleaks is not installed. Skipping secret scan. Install with `brew install gitleaks` (macOS) or see https://github.com/gitleaks/gitleaks#installing for other platforms." Then proceed with the commit.
+2. If available, run: `gitleaks detect --staged --no-banner`
+3. If secrets are detected: **abort the commit**. Show the gitleaks output and ask the user to remove the secrets before proceeding.
+4. If no secrets detected: proceed.
+
+```bash
 git commit -m "vault: add <title>"
 ```
 

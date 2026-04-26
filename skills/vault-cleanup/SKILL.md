@@ -117,7 +117,19 @@ Perform any combination of the following, committing after each logical change:
 3. Remove the file and clean up any `[[wikilinks]]` pointing to it.
 4. Commit: `vault: delete <title>`
 
-### 5. Regenerate INDEX.md
+### 5. Secret Scan
+
+Before every commit in step 4 (and step 6 below), scan staged files for secrets:
+
+1. Check if gitleaks is available: `command -v gitleaks`
+   - If not installed, warn the user: "gitleaks is not installed. Skipping secret scan. Install with `brew install gitleaks` (macOS) or see https://github.com/gitleaks/gitleaks#installing for other platforms." Then proceed with the commit.
+2. If available, stage the changes (`git add -A`) then run: `gitleaks detect --staged --no-banner`
+3. If secrets are detected: **abort the commit**. Show the gitleaks output and ask the user to remove the secrets before proceeding.
+4. If no secrets detected: proceed with the commit.
+
+This check applies to **every** `git commit` in the cleanup workflow.
+
+### 6. Regenerate INDEX.md
 
 After all changes are complete, regenerate `INDEX.md` entirely from note frontmatter:
 
@@ -141,7 +153,7 @@ Complete catalog of all notes in this vault.
 
 4. Commit: `vault: regenerate index`
 
-### 6. Merge into Main and Push
+### 7. Merge into Main and Push
 
 Acquire the merge lock:
 
@@ -172,7 +184,7 @@ Release the lock:
 rmdir ~/.local/share/opencode/vault/.merge-lock
 ```
 
-### 7. Cleanup
+### 8. Cleanup
 
 ```bash
 git -C ~/.local/share/opencode/vault/vault.git worktree remove \
