@@ -57,13 +57,26 @@ Then retry.
 
 All operations happen in `~/.local/share/opencode/vault/branches/<branch-name>/`.
 
-### 3. Read the Entire Vault
+### 3. Full Secret Scan
+
+Before reading or modifying anything, scan the entire worktree for existing secrets:
+
+```bash
+cd ~/.local/share/opencode/vault/branches/<branch-name>
+gitleaks detect --no-git --no-banner
+```
+
+- If gitleaks is not installed, warn the user: "gitleaks is not installed. Skipping full vault scan. Install with `brew install gitleaks` (macOS) or see https://github.com/gitleaks/gitleaks#installing for other platforms."
+- If secrets are detected: **stop and report them to the user immediately**. List the affected files and line numbers. Ask the user how to proceed (remove the secrets, delete the files, etc.) before continuing with any other maintenance work.
+- If no secrets detected: proceed.
+
+### 4. Read the Entire Vault
 
 1. Read `README.md` for vault structure and conventions.
 2. Read `INDEX.md` for the full catalog.
 3. Read **every note** in the vault to build a complete picture of content, tags, structure, and cross-references.
 
-### 4. Maintenance Operations
+### 5. Maintenance Operations
 
 Perform any combination of the following, committing after each logical change:
 
@@ -117,9 +130,9 @@ Perform any combination of the following, committing after each logical change:
 3. Remove the file and clean up any `[[wikilinks]]` pointing to it.
 4. Commit: `vault: delete <title>`
 
-### 5. Secret Scan
+### 6. Secret Scan
 
-Before every commit in step 4 (and step 6 below), scan staged files for secrets:
+Before every commit in step 5 (and step 7 below), scan staged files for secrets:
 
 1. Check if gitleaks is available: `command -v gitleaks`
    - If not installed, warn the user: "gitleaks is not installed. Skipping secret scan. Install with `brew install gitleaks` (macOS) or see https://github.com/gitleaks/gitleaks#installing for other platforms." Then proceed with the commit.
@@ -129,7 +142,7 @@ Before every commit in step 4 (and step 6 below), scan staged files for secrets:
 
 This check applies to **every** `git commit` in the cleanup workflow.
 
-### 6. Regenerate INDEX.md
+### 7. Regenerate INDEX.md
 
 After all changes are complete, regenerate `INDEX.md` entirely from note frontmatter:
 
@@ -153,7 +166,7 @@ Complete catalog of all notes in this vault.
 
 4. Commit: `vault: regenerate index`
 
-### 7. Merge into Main and Push
+### 8. Merge into Main and Push
 
 Acquire the merge lock:
 
@@ -184,7 +197,7 @@ Release the lock:
 rmdir ~/.local/share/opencode/vault/.merge-lock
 ```
 
-### 8. Cleanup
+### 9. Cleanup
 
 ```bash
 git -C ~/.local/share/opencode/vault/vault.git worktree remove \
