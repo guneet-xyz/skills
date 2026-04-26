@@ -92,8 +92,7 @@ Perform any combination of the following, committing after each logical change:
 
 1. Improve note clarity, fix grammar, improve structure.
 2. Ensure notes are well-organized with clear headings.
-3. Update the `modified` date in frontmatter.
-4. Commit: `vault: update <title>`
+3. Commit: `vault: update <title>`
 
 #### Tag Normalization
 
@@ -112,7 +111,7 @@ Perform any combination of the following, committing after each logical change:
 
 #### Frontmatter Validation
 
-1. Ensure every note has all required frontmatter fields (title, tags, created, modified, type).
+1. Ensure every note has all required frontmatter fields (title, tags, type).
 2. Fix any missing or malformed fields.
 3. Commit: `vault: fix frontmatter`
 
@@ -213,9 +212,7 @@ Every note MUST have these fields:
 ---
 title: <Note Title>
 tags: [<tag1>, <tag2>]
-created: <YYYY-MM-DD or "unknown">
-modified: <YYYY-MM-DD>
-type: <note|daily|template|gateway|project|excalidraw|canvas>
+type: <note|template|project|canvas>
 ---
 ```
 
@@ -223,15 +220,12 @@ type: <note|daily|template|gateway|project|excalidraw|canvas>
 |------------|--------|----------------------------------------------------------|
 | `title`    | string | Human-readable title                                     |
 | `tags`     | list   | 2-5 tags. Reuse existing tags from INDEX.md first.       |
-| `created`  | string | ISO date or `"unknown"` if not determinable              |
-| `modified` | string | ISO date, updated on every edit                          |
 | `type`     | string | Note category (see values above)                         |
 
 ## Important Rules
 
 - **NEVER** store secrets, credentials, or API keys in the vault.
 - **NEVER** force push.
-- **NEVER** modify Excalidraw files (`.excalidraw.md`).
 - **NEVER** delete notes without user confirmation.
 - **ALWAYS** regenerate INDEX.md rather than editing it manually.
 - **ALWAYS** use the merge lock during the merge+push step.

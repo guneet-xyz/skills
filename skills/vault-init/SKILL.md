@@ -71,7 +71,7 @@ Notes are stored as markdown files with YAML frontmatter. See INDEX.md for a ful
 
 - One topic per note
 - Use [[wikilinks]] for cross-references
-- All notes must have valid frontmatter (title, tags, created, modified, type)
+- All notes must have valid frontmatter (title, tags, type)
 ```
 
 **INDEX.md**:

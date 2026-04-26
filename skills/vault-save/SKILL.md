@@ -80,9 +80,7 @@ Before creating a new note, search `INDEX.md` for notes with similar titles, tag
 ---
 title: <Note Title>
 tags: [<tag1>, <tag2>]
-created: <YYYY-MM-DD>
-modified: <YYYY-MM-DD>
-type: <note|daily|template|gateway|project|excalidraw|canvas>
+type: <note|template|project|canvas>
 ---
 ```
 
@@ -92,7 +90,6 @@ type: <note|daily|template|gateway|project|excalidraw|canvas>
 
 1. Read the current note content.
 2. Make changes.
-3. Update the `modified` field in frontmatter to today's date.
 
 **Tag discipline:** before inventing a new tag, check what tags already exist in `INDEX.md`. Reuse existing tags for consistency. Only create new tags when no existing tag fits.
 
@@ -192,9 +189,7 @@ Every note MUST have these fields:
 ---
 title: <Note Title>
 tags: [<tag1>, <tag2>]
-created: <YYYY-MM-DD or "unknown">
-modified: <YYYY-MM-DD>
-type: <note|daily|template|gateway|project|excalidraw|canvas>
+type: <note|template|project|canvas>
 ---
 ```
 
@@ -202,15 +197,12 @@ type: <note|daily|template|gateway|project|excalidraw|canvas>
 |------------|--------|----------------------------------------------------------|
 | `title`    | string | Human-readable title                                     |
 | `tags`     | list   | 2-5 tags. Reuse existing tags from INDEX.md first.       |
-| `created`  | string | ISO date or `"unknown"` if not determinable              |
-| `modified` | string | ISO date, updated on every edit                          |
 | `type`     | string | Note category (see values above)                         |
 
 ## Important Rules
 
 - **NEVER** store secrets, credentials, or API keys in the vault.
 - **NEVER** force push.
-- **NEVER** modify Excalidraw files (`.excalidraw.md`).
 - **ALWAYS** regenerate INDEX.md rather than editing it manually.
 - **ALWAYS** use the merge lock during the merge+push step.
 - **ALWAYS** clean up the session worktree and branch after a successful merge.

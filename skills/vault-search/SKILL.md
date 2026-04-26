@@ -82,15 +82,12 @@ Notes have this frontmatter structure (for understanding search results):
 ---
 title: <Note Title>
 tags: [<tag1>, <tag2>]
-created: <YYYY-MM-DD or "unknown">
-modified: <YYYY-MM-DD>
-type: <note|daily|template|gateway|project|excalidraw|canvas>
+type: <note|template|project|canvas>
 ---
 ```
 
 ## Important Rules
 
 - **NEVER** write, modify, commit, or push anything. This skill is strictly read-only.
-- **NEVER** modify Excalidraw files (`.excalidraw.md`).
 - Always pull before searching to ensure fresh results.
 - If the user wants to save new information based on search findings, tell them to use the vault-save skill.
