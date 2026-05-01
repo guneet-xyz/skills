@@ -34,6 +34,7 @@ allowed-tools: Read, Grep, Glob, Bash, Task, Edit, Write
   // Good
   className={cn("text-sm", { "bg-blue-500": isActive })}
   ```
+- Never create custom CSS classes. Use Tailwind's utility classes directly. If you need reusability, extract a component instead of creating a shared class.
 
 ### String Escaping in JSX
 
